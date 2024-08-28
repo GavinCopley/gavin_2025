@@ -1,8 +1,8 @@
 ---
 layout: base
-title: Student Home 
-description: Home Page
+title: Home
+description: Website Home Page
 hide: true
 ---
 
-My journey starts here.
+By Gavin Copley
