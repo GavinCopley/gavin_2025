@@ -53,6 +53,20 @@ layout: base
       </p>
     {% endif %}
 
+    {% if page.quicks.size > 0 %}
+      <p class="quick-tags"><i class="fas fa-tags quick-tags-icon"></i></i> 
+      {% for quick in  page.quicks  %}
+        {%- assign prefix = quick | slice: 0 -%}
+        {% if prefix == "Q" %}
+          <a class="quick-tags-link" href="{{site.baseurl}}/quicks/cte#{{quick|slugize}}">{{quick}}</a>
+        {% else %}
+          <a class="quick-tags-link" href="{{site.baseurl}}/quicks/ap#{{quick|slugize}}">{{quick}}</a>
+        {% endif %}
+        {% unless forloop.last %}&nbsp;{% endunless %}
+      {% endfor %}
+      </p>
+    {% endif %}
+
     {% if page.layout == 'notebook' %}
       {% if page.badges or page.badges == nil %}
         <div class="pb-5 d-flex flex-justify-center">
