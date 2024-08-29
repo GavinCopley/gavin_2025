@@ -22,4 +22,5 @@ plugins:
 header_pages:
   - navigation/blog.md
   - navigation/search.md
+  - navigation/watch.md
   - navigation/about.md
