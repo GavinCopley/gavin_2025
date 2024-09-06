@@ -187,3 +187,5 @@ By Gavin Copley
   });
 
 </script>
+
+![America]({{site.baseurl}}/images/index/quote.png)
