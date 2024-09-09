@@ -6,9 +6,10 @@ permalink: /about/
 
 ### Where am I from?
 
- This is where I am from and where my parents are also from. California is a great place to grow up, with its amazing weather and diverse culture. My paternal grandparents are from San Diego and the Midwest. And my maternal grandparents are from Guayana and England.
+ This is where I am from and where my parents are also from. California is a great place to grow up, with its amazing weather and diverse culture. My paternal grandparents are from San Diego and Oklahoma. And my maternal grandparents are from Guayana and England.
 
 <style>
+    /* CHATGPT HELPED WITH THIS */
     /* Style looks pretty compact, 
        - grid-container and grid-item are referenced the code 
     */
@@ -52,17 +53,21 @@ permalink: /about/
     // 1. Make a connection to the HTML container defined in the HTML div
     var container = document.getElementById("grid_container"); // This container connects to the HTML div
 
-    // 2. Define a JavaScript object for our http source and our data rows for the Living in the World grid
+    // 2. Define a JavaScript object for our http source and our data rows for the place grid
     var http_source = "https://upload.wikimedia.org/wikipedia/commons/";
-    var living_in_the_world = [
-        {"flag": "0/01/Flag_of_California.svg", "greeting": "", "description": "California"},
+    var place = [
+        {"flag": "0/01/Flag_of_California.svg", "description": "California"},
+        {"flag": "1/19/Flag_of_San_Diego%2C_California.svg", "description": "San Diego"},
+        {"flag": "thumb/6/6e/Flag_of_Oklahoma.svg/640px-Flag_of_Oklahoma.svg.png", "description": "Oklahoma"},
+        {"flag": "thumb/b/bc/Flag_of_Guyana_%28fringed%29.svg/640px-Flag_of_Guyana_%28fringed%29.svg.png", "description": "Guyana"},
+        {"flag": "thumb/b/be/Flag_of_England.svg/640px-Flag_of_England.svg.png", "description": "England"}
     ];
 
     // 3a. Consider how to update style count for size of container
     // The grid-template-columns has been defined as dynamic with auto-fill and minmax
 
     // 3b. Build grid items inside of our container for each row of data
-    for (const location of living_in_the_world) {
+    for (const location of place) {
         // Create a "div" with "class grid-item" for each row
         var gridItem = document.createElement("div");
         gridItem.className = "grid-item";  // This class name connects the gridItem to the CSS style elements
@@ -75,14 +80,10 @@ permalink: /about/
         var description = document.createElement("p");
         description.textContent = location.description; // extract the description
 
-        // Add "p" HTML tag for the greeting
-        var greeting = document.createElement("p");
-        greeting.textContent = location.greeting;  // extract the greeting
 
         // Append img and p HTML tags to the grid item DIV
         gridItem.appendChild(img);
         gridItem.appendChild(description);
-        gridItem.appendChild(greeting);
 
         // Append the grid item DIV to the container DIV
         container.appendChild(gridItem);

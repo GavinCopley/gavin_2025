@@ -4,10 +4,12 @@ title: Home
 description: Website Home Page
 hide: true
 image: /images/white_mario.png
+menu: nav/index_nav.html
 ---
 
 By Gavin Copley
 
+Click the image for another inspiring quote
 <!--- Concatenation of site URL to frontmatter image  --->
 {% assign sprite_file = site.baseurl | append: page.image %}
 <!--- Has is a list variable containing mario metadata for sprite --->
@@ -188,4 +190,29 @@ By Gavin Copley
 
 </script>
 
-![America]({{site.baseurl}}/images/index/quote.png)
+<body>
+  <img id="imageDisplay" src="{{site.baseurl}}/images/index/quote.png" alt="Cycling Images" width="400" height="300" style="cursor:pointer;">
+  
+  <script>
+    // Array of image URLs
+    const images = [
+      '{{site.baseurl}}/images/index/quote.png',
+      '{{site.baseurl}}/images/index/download.jpeg',
+      '{{site.baseurl}}/images/index/quote2.jpeg',
+    ];
+
+    let currentIndex = 0;
+
+    // Get the image element
+    const imageElement = document.getElementById('imageDisplay');
+
+    // Add click event listener
+    imageElement.addEventListener('click', function() {
+      // Increment the index and cycle back to the start if needed
+      currentIndex = (currentIndex + 1) % images.length;
+
+      // Change the image source to the next image in the array
+      imageElement.src = images[currentIndex];
+    });
+  </script>
+</body>
