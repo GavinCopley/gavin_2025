@@ -7,8 +7,6 @@ image: /images/white_mario.png
 menu: nav/index_nav.html
 ---
 
-By Gavin Copley
-
 Click the image for another inspiring quote
 <!--- Concatenation of site URL to frontmatter image  --->
 {% assign sprite_file = site.baseurl | append: page.image %}
@@ -216,3 +214,57 @@ Click the image for another inspiring quote
     });
   </script>
 </body>
+
+<html>
+  <style>
+  .typeAnimation h1 {
+    overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    border-right: .015em solid orange;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.015em;
+    animation: 
+      typing 10s steps(30, end) forwards,
+      blink-caret 1s step-end infinite;
+    animation-delay: 0ms;
+    animation-fill-mode: forwards;
+    color: #000000;
+    width: 30ch;
+  }
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    25%, 50%, 75% {
+      width: 100%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+  }
+  h2 {
+      color: #FFFFEE;
+  }
+  h1 {
+    color: #FFFFFF;
+  }
+  </style>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+      document.querySelector("body").classList.add("loaded");
+  }, 2000)
+  });
+  </script>
+  <body>
+    <div class="typeAnimation">
+      <h1>Welcome to My Website.........</h1>
+    </div>
+  </body>
+</html>
