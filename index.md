@@ -7,216 +7,11 @@ image: /images/white_mario.png
 menu: nav/index_nav.html
 ---
 
-Click the image for another inspiring quote
-<!--- Concatenation of site URL to frontmatter image  --->
-{% assign sprite_file = site.baseurl | append: page.image %}
-<!--- Has is a list variable containing mario metadata for sprite --->
-{% assign hash = site.data.mario_metadata %}  
-<!--- Size width/height of Sprit images --->
-{% assign pixels = 256 %}
+<div class="typeAnimation">
+  <h1>Welcome to My Website.........</h1>
+</div>
 
-<!--- HTML for page contains <p> tag named "Mario" and class properties for a "sprite"  -->
-
-<p id="mario" class="sprite"></p>
-  
-<!--- Embedded Cascading Style Sheet (CSS) rules, 
-        define how HTML elements look 
---->
 <style>
-
-  /*CSS style rules for the id and class of the sprite...
-  */
-  .sprite {
-    height: {{pixels}}px;
-    width: {{pixels}}px;
-    background-image: url('{{sprite_file}}');
-    background-repeat: no-repeat;
-  }
-
-  /*background position of sprite element
-  */
-  #mario {
-    background-position: calc({{animations[0].col}} * {{pixels}} * -1px) calc({{animations[0].row}} * {{pixels}}* -1px);
-  }
-</style>
-
-<!--- Embedded executable code--->
-<script>
-  ////////// convert YML hash to javascript key:value objects /////////
-
-  var mario_metadata = {}; //key, value object
-  {% for key in hash %}  
-  
-  var key = "{{key | first}}"  //key
-  var values = {} //values object
-  values["row"] = {{key.row}}
-  values["col"] = {{key.col}}
-  values["frames"] = {{key.frames}}
-  mario_metadata[key] = values; //key with values added
-
-  {% endfor %}
-
-  ////////// game object for player /////////
-
-  class Mario {
-    constructor(meta_data) {
-      this.tID = null;  //capture setInterval() task ID
-      this.positionX = 0;  // current position of sprite in X direction
-      this.currentSpeed = 0;
-      this.marioElement = document.getElementById("mario"); //HTML element of sprite
-      this.pixels = {{pixels}}; //pixel offset of images in the sprite, set by liquid constant
-      this.interval = 100; //animation time interval
-      this.obj = meta_data;
-      this.marioElement.style.position = "absolute";
-    }
-
-    animate(obj, speed) {
-      let frame = 0;
-      const row = obj.row * this.pixels;
-      this.currentSpeed = speed;
-
-      this.tID = setInterval(() => {
-        const col = (frame + obj.col) * this.pixels;
-        this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
-        this.marioElement.style.left = `${this.positionX}px`;
-
-        this.positionX += speed;
-        frame = (frame + 1) % obj.frames;
-
-        const viewportWidth = window.innerWidth;
-        if (this.positionX > viewportWidth - this.pixels) {
-          document.documentElement.scrollLeft = this.positionX - viewportWidth + this.pixels;
-        }
-      }, this.interval);
-    }
-
-    startWalking() {
-      this.stopAnimate();
-      this.animate(this.obj["Walk"], 3);
-    }
-
-    startRunning() {
-      this.stopAnimate();
-      this.animate(this.obj["Run1"], 6);
-    }
-
-    startPuffing() {
-      this.stopAnimate();
-      this.animate(this.obj["Puff"], 0);
-    }
-
-    startCheering() {
-      this.stopAnimate();
-      this.animate(this.obj["Cheer"], 0);
-    }
-
-    startFlipping() {
-      this.stopAnimate();
-      this.animate(this.obj["Flip"], 0);
-    }
-
-    startResting() {
-      this.stopAnimate();
-      this.animate(this.obj["Rest"], 0);
-    }
-
-    stopAnimate() {
-      clearInterval(this.tID);
-    }
-  }
-
-  const mario = new Mario(mario_metadata);
-
-  ////////// event control /////////
-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      if (event.repeat) {
-        mario.startCheering();
-      } else {
-        if (mario.currentSpeed === 0) {
-          mario.startWalking();
-        } else if (mario.currentSpeed === 3) {
-          mario.startRunning();
-        }
-      }
-    } else if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      if (event.repeat) {
-        mario.stopAnimate();
-      } else {
-        mario.startPuffing();
-      }
-    }
-  });
-
-  //touch events that enable animations
-  window.addEventListener("touchstart", (event) => {
-    event.preventDefault(); // prevent default browser action
-    if (event.touches[0].clientX > window.innerWidth / 2) {
-      // move right
-      if (currentSpeed === 0) { // if at rest, go to walking
-        mario.startWalking();
-      } else if (currentSpeed === 3) { // if walking, go to running
-        mario.startRunning();
-      }
-    } else {
-      // move left
-      mario.startPuffing();
-    }
-  });
-
-  //stop animation on window blur
-  window.addEventListener("blur", () => {
-    mario.stopAnimate();
-  });
-
-  //start animation on window focus
-  window.addEventListener("focus", () => {
-     mario.startFlipping();
-  });
-
-  //start animation on page load or page refresh
-  document.addEventListener("DOMContentLoaded", () => {
-    // adjust sprite size for high pixel density devices
-    const scale = window.devicePixelRatio;
-    const sprite = document.querySelector(".sprite");
-    sprite.style.transform = `scale(${0.2 * scale})`;
-    mario.startResting();
-  });
-
-</script>
-
-<body>
-  <img id="imageDisplay" src="{{site.baseurl}}/images/index/quote.png" alt="Cycling Images" width="400" height="300" style="cursor:pointer;">
-  
-  <script>
-    // Array of image URLs
-    const images = [
-      '{{site.baseurl}}/images/index/quote.png',
-      '{{site.baseurl}}/images/index/download.jpeg',
-      '{{site.baseurl}}/images/index/quote2.jpeg',
-    ];
-
-    let currentIndex = 0;
-
-    // Get the image element
-    const imageElement = document.getElementById('imageDisplay');
-
-    // Add click event listener
-    imageElement.addEventListener('click', function() {
-      // Increment the index and cycle back to the start if needed
-      currentIndex = (currentIndex + 1) % images.length;
-
-      // Change the image source to the next image in the array
-      imageElement.src = images[currentIndex];
-    });
-  </script>
-</body>
-
-<html>
-  <style>
   .typeAnimation h1 {
     overflow: hidden;
     font-family: 'Open Sans', sans-serif;
@@ -225,46 +20,307 @@ Click the image for another inspiring quote
     white-space: nowrap;
     margin: 0 auto;
     letter-spacing: 0.015em;
-    animation: 
-      typing 10s steps(30, end) forwards,
-      blink-caret 1s step-end infinite;
+    animation: typing 10s steps(30, end) forwards, blink-caret 1s step-end infinite;
     animation-delay: 0ms;
     animation-fill-mode: forwards;
     color: #000000;
     width: 30ch;
   }
+
   @keyframes typing {
-    0% {
-      width: 0;
-    }
-    25%, 50%, 75% {
-      width: 100%;
-    }
-    100% {
-      width: 100%;
-    }
+    0% { width: 0; }
+    25%, 50%, 75% { width: 100%; }
+    100% { width: 100%; }
   }
+
   @keyframes blink-caret {
-    from, to { border-color: transparent }
+    from, to { border-color: transparent; }
     50% { border-color: white; }
   }
-  h2 {
-      color: #FFFFEE;
-  }
-  h1 {
-    color: #FFFFFF;
-  }
-  </style>
-  <script>
-  document.addEventListener("DOMContentLoaded", function() {
-  setTimeout(function() {
-      document.querySelector("body").classList.add("loaded");
-  }, 2000)
+</style>
+
+Click the image for another inspiring quote
+
+<!-- Quote Image -->
+<img id="imageDisplay" src="{{site.baseurl}}/images/index/quote.png" alt="Cycling Images" width="400" height="300" style="cursor:pointer;">
+
+<script>
+  const images = [
+    '{{site.baseurl}}/images/index/quote.png',
+    '{{site.baseurl}}/images/index/download.jpeg',
+    '{{site.baseurl}}/images/index/quote2.jpeg',
+  ];
+
+  let currentIndex = 0;
+  const imageElement = document.getElementById('imageDisplay');
+
+  imageElement.addEventListener('click', function() {
+    currentIndex = (currentIndex + 1) % images.length;
+    imageElement.src = images[currentIndex];
   });
-  </script>
-  <body>
-    <div class="typeAnimation">
-      <h1>Welcome to My Website.........</h1>
-    </div>
-  </body>
-</html>
+</script>
+<!-- END OF QUOTE IMAGES -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+      document.querySelector("body").classList.add("loaded");
+    }, 2000)
+  });
+</script>
+
+<!-- SNAKE GAME START HERE -->
+<canvas id="aiCanvas" width="400" height="400"></canvas>
+<canvas id="playerCanvas" width="400" height="400"></canvas>
+
+<style>
+  canvas {
+    border: 2px solid black; /* Add black border */
+    background-color: lightgray; /* Set background color to light gray */
+  }
+</style>
+
+<script>
+  const aiCanvas = document.getElementById("aiCanvas");
+  const playerCanvas = document.getElementById("playerCanvas");
+  const aiCtx = aiCanvas.getContext("2d");
+  const playerCtx = playerCanvas.getContext("2d");
+
+  const gridSize = 20;
+  const tileCount = aiCanvas.width / gridSize;
+
+  // Game state
+  let gameRunning = false; // Flag to control if the game is running
+  let gameStarted = false; // Flag to control if the game has started
+
+  // Timer variables
+  let timer = 60; // Timer set for 60 seconds
+  let timerInterval; // Interval ID for the timer
+
+  // AI Snake Game State
+  let aiSnake = [{ x: 10, y: 10 }];
+  let aiFood = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+  let aiDirection = { x: 0, y: 0 };
+  let aiScore = 0;
+  let aiHighScore = 0; // Track AI high score
+
+  // Player Snake Game State
+  let playerSnake = [{ x: 10, y: 10 }];
+  let playerFood = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+  let playerDirection = { x: 0, y: 0 };
+  let playerScore = 0;
+  let playerHighScore = 0; // Track player high score
+
+  // Function to display the "Press Space" message on player canvas only
+  function showStartMessage() {
+    const message1 = "Press Space to Play Snake";
+    const message2 = "Against ChatGPT";
+
+    // Clear the player canvas before drawing the message
+    playerCtx.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
+
+    // Draw the first part of the message on one line and the second on the next
+    playerCtx.fillStyle = "white";
+    playerCtx.font = "20px Arial";
+    playerCtx.fillText(message1, playerCanvas.width / 2 - 120, playerCanvas.height / 2 - 10); // Adjust X and Y for centering
+    playerCtx.fillText(message2, playerCanvas.width / 2 - 80, playerCanvas.height / 2 + 20); // Adjust X and Y for centering
+  }
+
+  // Function to display the winner message
+  function showWinnerMessage() {
+    let winnerMessage;
+    if (playerHighScore > aiHighScore) {
+      winnerMessage = "Player Wins!";
+    } else if (aiHighScore > playerHighScore) {
+      winnerMessage = "ChatGPT Wins!";
+    } else {
+      winnerMessage = "It's a Tie!";
+    }
+
+    // Clear the player canvas before drawing the message
+    playerCtx.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
+
+    // Draw the winner message
+    playerCtx.fillStyle = "white";
+    playerCtx.font = "30px Arial";
+    playerCtx.textAlign = "center";
+    playerCtx.fillText(winnerMessage, playerCanvas.width / 2, playerCanvas.height / 2);
+  }
+
+  function updateTimer() {
+    if (timer > 0) {
+      timer--;
+    } else {
+      clearInterval(timerInterval);
+      gameRunning = false;
+      showWinnerMessage();
+    }
+  }
+
+  // AI and Player Game Mechanics Functions
+  function checkCollision(snake) {
+    const head = snake[0];
+    for (let i = 1; i < snake.length; i++) {
+      if (snake[i].x === head.x && snake[i].y === head.y) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function autoMoveAI() {
+    const head = aiSnake[0];
+    if (head.x < aiFood.x) aiDirection = { x: 1, y: 0 };
+    else if (head.x > aiFood.x) aiDirection = { x: -1, y: 0 };
+    else if (head.y < aiFood.y) aiDirection = { x: 0, y: 1 };
+    else if (head.y > aiFood.y) aiDirection = { x: 0, y: -1 };
+  }
+
+  function updateAI() {
+    autoMoveAI();
+    const newHead = { x: aiSnake[0].x + aiDirection.x, y: aiSnake[0].y + aiDirection.y };
+
+    if (newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount || checkCollision(aiSnake)) {
+      if (aiScore > aiHighScore) aiHighScore = aiScore; // Update high score if needed
+      resetAISnake();
+    } else {
+      aiSnake.unshift(newHead);
+
+      if (newHead.x === aiFood.x && newHead.y === aiFood.y) {
+        aiScore++;
+        placeAIFood();
+      } else {
+        aiSnake.pop();
+      }
+    }
+  }
+
+  function drawAI() {
+    aiCtx.clearRect(0, 0, aiCanvas.width, aiCanvas.height);
+    aiSnake.forEach(part => {
+      aiCtx.fillStyle = "lime";
+      aiCtx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize);
+    });
+
+    aiCtx.fillStyle = "red";
+    aiCtx.fillRect(aiFood.x * gridSize, aiFood.y * gridSize, gridSize, gridSize);
+
+    aiCtx.fillStyle = "white";
+    aiCtx.font = "20px Arial";
+    aiCtx.fillText("AI Score: " + aiScore, 10, aiCanvas.height - 30);
+    aiCtx.fillText("AI High Score: " + aiHighScore, 10, aiCanvas.height - 10);
+  }
+
+  function placeAIFood() {
+    aiFood = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+  }
+
+  function resetAISnake() {
+    aiSnake = [{ x: 10, y: 10 }];
+    aiDirection = { x: 0, y: 0 };
+    aiScore = 0;
+    placeAIFood();
+  }
+
+  document.addEventListener("keydown", (event) => {
+    const arrowKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+    if (arrowKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+
+    switch (event.key) {
+      case "w": case "ArrowUp":
+        if (playerDirection.y === 0) playerDirection = { x: 0, y: -1 };
+        break;
+      case "a": case "ArrowLeft":
+        if (playerDirection.x === 0) playerDirection = { x: -1, y: 0 };
+        break;
+      case "s": case "ArrowDown":
+        if (playerDirection.y === 0) playerDirection = { x: 0, y: 1 };
+        break;
+      case "d": case "ArrowRight":
+        if (playerDirection.x === 0) playerDirection = { x: 1, y: 0 };
+        break;
+    }
+  });
+
+  function updatePlayer() {
+    const newHead = { x: playerSnake[0].x + playerDirection.x, y: playerSnake[0].y + playerDirection.y };
+
+    if (newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount || checkCollision(playerSnake)) {
+      if (playerScore > playerHighScore) playerHighScore = playerScore; // Update high score if needed
+      resetPlayerSnake();
+    } else {
+      playerSnake.unshift(newHead);
+
+      if (newHead.x === playerFood.x && newHead.y === playerFood.y) {
+        playerScore++;
+        placePlayerFood();
+      } else {
+        playerSnake.pop();
+      }
+    }
+  }
+
+  function drawPlayer() {
+    playerCtx.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
+    playerSnake.forEach(part => {
+      playerCtx.fillStyle = "blue";
+      playerCtx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize);
+    });
+
+    playerCtx.fillStyle = "yellow";
+    playerCtx.fillRect(playerFood.x * gridSize, playerFood.y * gridSize, gridSize, gridSize);
+
+    playerCtx.fillStyle = "white";
+    playerCtx.font = "20px Arial";
+    playerCtx.fillText("Player Score: " + playerScore, 76, playerCanvas.height - 30);
+    playerCtx.fillText("Player High Score: " + playerHighScore, 100, playerCanvas.height - 10);
+
+    // Display the timer on the player canvas
+    playerCtx.font = "30px Arial";
+    playerCtx.textAlign = "center";
+    playerCtx.fillText("Time Left: " + timer, playerCanvas.width / 2, 30);
+  }
+
+  function placePlayerFood() {
+    playerFood = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+  }
+
+  function resetPlayerSnake() {
+    playerSnake = [{ x: 10, y: 10 }];
+    playerDirection = { x: 0, y: 0 };
+    playerScore = 0;
+    placePlayerFood();
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+      if (!gameRunning) {
+        gameRunning = true; // Start the game when space is pressed
+        gameStarted = true; // Indicate that the game has started
+        resetAISnake();
+        resetPlayerSnake();
+        timer = 60; // Reset the timer
+        timerInterval = setInterval(updateTimer, 1000); // Start the timer
+      }
+    }
+  });
+
+  function gameLoop() {
+    if (!gameRunning) {
+      if (!gameStarted) {
+        showStartMessage(); // Display the start message if the game isn't running
+      }
+      return;
+    }
+
+    updateAI();
+    drawAI();
+
+    updatePlayer();
+    drawPlayer();
+  }
+
+  setInterval(gameLoop, 100);
+</script>
