@@ -198,11 +198,11 @@ Click the image for another inspiring quote
   function drawAI() {
     aiCtx.clearRect(0, 0, aiCanvas.width, aiCanvas.height);
     aiSnake.forEach(part => {
-      aiCtx.fillStyle = "lime";
+      aiCtx.fillStyle = "yellow";
       aiCtx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize);
     });
 
-    aiCtx.fillStyle = "red";
+    aiCtx.fillStyle = "blue";
     aiCtx.fillRect(aiFood.x * gridSize, aiFood.y * gridSize, gridSize, gridSize);
 
     aiCtx.fillStyle = "white";
@@ -265,11 +265,11 @@ Click the image for another inspiring quote
   function drawPlayer() {
     playerCtx.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
     playerSnake.forEach(part => {
-      playerCtx.fillStyle = "blue";
+      playerCtx.fillStyle = "lime";
       playerCtx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize);
     });
 
-    playerCtx.fillStyle = "yellow";
+    playerCtx.fillStyle = "red";
     playerCtx.fillRect(playerFood.x * gridSize, playerFood.y * gridSize, gridSize, gridSize);
 
     playerCtx.fillStyle = "white";
