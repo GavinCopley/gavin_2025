@@ -48,9 +48,38 @@ menu: nav/games_nav.html
     background-color: #333333; /* Dark background */
     color: white; /* White text */
   }
+  .calculator-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  max-width: 300px;
+  margin: auto;
+}
+
+.calculator-number, .calculator-operation, .calculator-equals, .calculator-clear {
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calculator-output {
+  grid-column: span 4;
+  padding: 10px;
+  font-size: 24px;
+  text-align: right;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
 </style>
 
-<!-- Add a container for the animation -->
+<!-- Add a container for the animation and image -->
 <div id="animation">
   <div class="calculator-container">
     <!-- Button to toggle history -->
@@ -61,27 +90,23 @@ menu: nav/games_nav.html
     </div>
     <!-- Result -->
     <div class="calculator-output" id="output">0</div>
-    <!-- Row 1 -->
+    <!-- Buttons grid for the calculator -->
     <div class="calculator-number">1</div>
     <div class="calculator-number">2</div>
     <div class="calculator-number">3</div>
     <div class="calculator-operation">+</div>
-    <!-- Row 2 -->
     <div class="calculator-number">4</div>
     <div class="calculator-number">5</div>
     <div class="calculator-number">6</div>
     <div class="calculator-operation">-</div>
-    <!-- Row 3 -->
     <div class="calculator-number">7</div>
     <div class="calculator-number">8</div>
     <div class="calculator-number">9</div>
     <div class="calculator-operation">*</div>
-    <!-- Row 4 -->
     <div class="calculator-number">π</div>
     <div class="calculator-number">0</div>
     <div class="calculator-operation">√</div>
     <div class="calculator-operation">^</div>
-    <!-- Row 5 -->
     <div class="calculator-clear">A/C</div>
     <div class="calculator-number">.</div>
     <div class="calculator-operation">±</div>
@@ -276,32 +301,4 @@ menu: nav/games_nav.html
       nextReady = true;
     }
   }
-</script>
-
-<!--Vanta animations just for fun, load JS onto the page-->
-<script src="{{site.baseurl}}/assets/js/three.r119.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/vanta.halo.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/vanta.birds.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/vanta.net.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/vanta.rings.min.js"></script>
-
-<script>
-// setup vanta scripts as functions
-var vantaInstances = {
-  halo: VANTA.HALO,
-  birds: VANTA.BIRDS,
-  net: VANTA.NET,
-  rings: VANTA.RINGS
-};
-
-// obtain a random vanta function
-var vantaInstance = vantaInstances[Object.keys(vantaInstances)[Math.floor(Math.random() * Object.keys(vantaInstances).length)]];
-
-// run the animation
-vantaInstance({
-  el: "#animation",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false
-});
 </script>
