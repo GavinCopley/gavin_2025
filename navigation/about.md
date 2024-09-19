@@ -1,7 +1,8 @@
 ---
-layout: page
+layout: post
 title: About
 permalink: /about/
+comments: true
 ---
 
 ### Where am I from?
