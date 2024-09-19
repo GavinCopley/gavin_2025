@@ -7,7 +7,6 @@ description: Very cool calculator
 type: hacks
 courses: { csp: {week: 3} }
 permalink: /games/calculator
-image: /images/calculator_image.png
 menu: nav/games_nav.html
 ---
 
