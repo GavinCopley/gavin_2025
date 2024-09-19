@@ -229,7 +229,7 @@ Click the image for another inspiring quote
     }
 
     switch (event.key) {
-      case "w": case "ArrowUp":
+       case"w": case "ArrowUp":
         if (playerDirection.y === 0) playerDirection = { x: 0, y: -1 };
         break;
       case "a": case "ArrowLeft":
