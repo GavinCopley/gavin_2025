@@ -2,9 +2,9 @@ Unit1:
   title: Tools and Software Development Processes
   description:  A quick foundation, prior to students starting their College Board Create Task and Full Stack Web Development with Python journey.
   start: 0
-  end: 3
+  end: 4
 Unit2:
   title: Web Development Layers
   description:  The main focus of this sprint is to empower students to explore the development and deployment of a simple website.
-  start: 4
-  end: 7
+  start: 5
+  end: 8
