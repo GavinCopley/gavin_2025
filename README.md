@@ -1,13 +1,13 @@
-# Welcome to Gavin's Developer Portfolio
-
-Hi, I'm Gavin Copley — a passionate Computer Science student at Del Norte High School. This portfolio is a showcase of my coding journey through the APCSP pathway, including projects, challenges, and creative problem-solving I've done during the 2024–2025 school year. Each post reflects what I've learned and where I’m headed.
-
-
 # Introduction
 
-Nighthawk Pages is a project designed to support students in their Computer Science and Software Engineering education. It offers a wide range of resources including tech talks, code examples, and educational blogs.
+Welcome to gavin_2025 — a personal documentation hub for my journey through AP Computer Science Principles at Del Norte High School.
 
-GitHub Pages can be customized by the blogger to support computer science learnings as the student works through the pathway of using Javascript, Python/Flask, Java/Spring.  
+This repository includes:
+- My classwork and hacks
+- Artifacts from projects like MediPulse that showcase full-stack development
+- Notes and reflections on coding topics and computer science concepts
+
+This site is built using Nighthawk Pages and GitHub Pages to demonstrate my growth as a developer through real code artifacts, blog posts, and collaborative work.
 
 ## Student Requirements
 
