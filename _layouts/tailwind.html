@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang='{{ page.lang | default: site.lang | default: "en" }}'>
+    {%- if page.menu -%} {% include {{page.menu}} html=content %} {%- endif -%}
+    <body>
+        <main class="page-content" aria-label="Content">
+            <div class="wrapper bg-white">{{ content }}</div>
+        </main>
+    </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+</html>
+
+<script>
+    // JavaScript to handle fade-in effect on scroll
+    const fadeInElements = document.querySelectorAll(".fade-in");
+
+    const handleScroll = () => {
+        fadeInElements.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+                el.classList.add("visible");
+            } else {
+                el.classList.remove("visible");
+            }
+        });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("load", handleScroll); // Trigger on page load
+</script>
