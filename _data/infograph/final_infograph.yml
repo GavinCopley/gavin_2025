@@ -1,6 +1,16 @@
-Title: "LinkedIn"
-Description: "My LinkedIn profile showcases my professional journey, highlighting my skills, experiences, and projects."
+Title: "Final Blog - Individual"
+Description: "This has all of the information about my final blog"
 Topics:
+  - title: "Main Blog"
+    image: "/ocs_dashboard.png"
+    link: "https://gavincopley.github.io/gavin_2025/csp/tri3/final_blogipynb"
+    alt: "OCS Dashboard"
+    keyPoints:
+      - "Has LinkedIn info"
+      - "Has Project info"
+      - "Has all GitHub Stats"
+    subtitle: ""
+    description: "This is the main blog that has all of the information needed."
   - title: "LinkedIn Profile"
     image: "/linkedin.png"
     link: "https://www.linkedin.com/in/gavincopley/"
