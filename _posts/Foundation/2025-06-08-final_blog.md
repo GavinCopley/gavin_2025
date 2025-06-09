@@ -9,6 +9,7 @@ categories: ['DevOps']
 permalink: csp/tri3/final_blog
 courses: { csp: {week: 19} }
 infoGraph: final_infograph
+menu: nav/final_blog.html
 ---
 
 {%- include tailwind/infograph.html -%}
