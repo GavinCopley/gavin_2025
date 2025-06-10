@@ -12,7 +12,7 @@ Topics:
     subtitle: ""
     description: "This is the main blog that has all of the information needed."
   - title: "Night at the Museum"
-    image: ""
+    image: "/natm1.JPEG"
     link: "https://gavincopley.github.io/gavin_2025/csp/tri3/natm"
     alt: "natm"
     keyPoints:
